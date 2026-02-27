@@ -5,4 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 </head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+    <p>This is the front-end display of our application.</p>
+    <script>
+        async function populate() {
+            const URL = "https://github.com/dcmondok88/SpendSmart/blob/main/AnalysisEngine/ga_census_data.json"
+            const request = new Request(URL);
+            const response = await fetch(request);
+            const result = await response.json();
+            console.log(result);
+            
+        }
+    </script>
 </html>
