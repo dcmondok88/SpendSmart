@@ -7,15 +7,17 @@
 </head>
 <body>
     <h1>Welcome to the Home Page</h1>
-    <p>This is the front-end display of our application.</p>
-    <script>
+    <p>This is the front-end display of our application.</p> 
+       <script>
         async function populate() {
-            const URL = "https://github.com/dcmondok88/SpendSmart/blob/main/AnalysisEngine/ga_census_data.json"
+            const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json"
             const request = new Request(URL);
             const response = await fetch(request);
             const result = await response.json();
-            console.log(result);
+            document.writeln(result.g);
             
         }
+
+        populate();
     </script>
 </html>
