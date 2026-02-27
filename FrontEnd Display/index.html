@@ -14,7 +14,7 @@
             const request = new Request(URL);
             const response = await fetch(request);
             const result = await response.json();
-            document.writeln(result.g);
+            document.writeln(result["State-Income-Data"]["Georgia"]["Median-Household-Income"]);
             
         }
 
