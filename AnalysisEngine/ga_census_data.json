@@ -1,0 +1,12 @@
+{
+    "State Income Data": {
+        "Georgia": {
+            "Median Household Income": "$79,901"
+        },
+        "Based on Household Type in Georgia": {
+            "Median Families Household Income": "$96,419",
+            "Median Married-couples Household Income": "$116,922",
+            "Median Nonfamily Household Income": "$49,250"
+        }
+    }
+}
