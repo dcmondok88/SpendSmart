@@ -7,17 +7,73 @@
 </head>
 <body>
     <h1>Welcome to the Home Page</h1>
-    <p>This is the front-end display of our application.</p> 
-       <script>
+    <p>This is the front-end display of our application.</p>
+
+    <!-- Dropdown -->
+    <label for="householdSelect">Select household type:</label>
+    <select id="householdSelect">
+        <option value="default">Select One</option>
+        <option value="family">Family Household</option>
+        <option value="married">Married-Couple Household</option>
+        <option value="nonfamily">Nonfamily Household</option>
+    </select>
+
+    <!-- Display box -->
+    <div id="valueBox" 
+         style="margin-top:20px; padding:10px; width:350px; border:1px solid #333;">
+        Loading...
+    </div>
+
+    <script>
+        let censusData = null;
+
         async function populate() {
-            const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json"
-            const request = new Request(URL);
-            const response = await fetch(request);
-            const result = await response.json();
-            document.writeln(result["State-Income-Data"]["Georgia"]["Median-Household-Income"]);
-            
+            const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json";
+            const response = await fetch(URL);
+            censusData = await response.json();
+
+            // Show default median income on page load
+            showDefaultIncome();
         }
+
+        function showDefaultIncome() {
+            const value = censusData["State-Income-Data"]["Georgia"]["Median-Household-Income"];
+            const box = document.getElementById("valueBox");
+            box.textContent = `Median Household Income: ${value}`;
+        }
+
+        function updateBox(selection) {
+            const box = document.getElementById("valueBox");
+
+            let value;
+            let label;
+
+            if (selection === "family") {
+                label = "Median Income for Families";
+                value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Families Household Income"];
+            } 
+            else if (selection === "married") {
+                label = "Median Income for Married-Couple Households";
+                value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Married-couples Household Income"];
+            } 
+            else if (selection === "nonfamily") {
+                label = "Median Income for Nonfamily Households";
+                value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Nonfamily Household Income"];
+            } 
+            else {
+                // User selected "Select One" → return to default
+                showDefaultIncome();
+                return;
+            }
+
+            box.textContent = `${label}: ${value}`;
+        }
+
+        document.getElementById("householdSelect").addEventListener("change", function() {
+            updateBox(this.value);
+        });
 
         populate();
     </script>
+</body>
 </html>
