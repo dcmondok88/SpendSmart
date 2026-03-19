@@ -4,30 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #e9ffe9, #d6ffd6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .homepage-container {
+            background: white;
+            padding: 40px;
+            width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Heading color (lighter green) */
+        h1 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #2d8a2d;
+        }
+
+        /* Standard black text for description */
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: black;
+        }
+
+        /* Label styling */
+        label {
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Dropdown appearance */
+        select {
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 1px solid #6bbf59;
+        }
+
+        /* Display box styling */
+        #valueBox {
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 15px;
+            width: 350px;
+            border-radius: 8px;
+            border: 1px solid #2e7d32 !important;
+            background: #e8ffe8;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Next Page button styling */
+        #nextPageBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2d8a2d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none; /* Hidden until a choice is made */
+        }
+
+        #nextPageBtn:hover {
+            background-color: #256f25;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the front-end display of our application.</p>
 
-    <!-- Dropdown -->
-    <label for="householdSelect">Select household type:</label>
-    <select id="householdSelect">
-        <option value="default">Select One</option>
-        <option value="family">Family Household</option>
-        <option value="married">Married-Couple Household</option>
-        <option value="nonfamily">Nonfamily Household</option>
-    </select>
+    <div class="homepage-container">
 
-    <!-- Display box -->
-    <div id="valueBox" 
-         style="margin-top:20px; padding:10px; width:350px; border:1px solid #333;">
-        Loading...
+        <h1>Welcome to the Home Page</h1>
+        <p>Please select a household type. The median income for that category will be displayed.<br><br>
+        After selecting a household type, click the "Next Page" button to continue.</p>
+
+        <!-- Dropdown for selecting household type -->
+        <label for="householdSelect">Select household type:</label>
+        <select id="householdSelect">
+            <option value="default">Select One</option>
+            <option value="family">Family Household</option>
+            <option value="married">Married-Couple Household</option>
+            <option value="nonfamily">Nonfamily Household</option>
+        </select>
+
+        <!-- Display box for showing income values -->
+        <div id="valueBox" 
+             style="margin-top:20px; padding:10px; width:350px; border:1px solid #333;">
+            Loading...
+        </div>
+
+        <!-- Button appears after a selection is made -->
+        <button id="nextPageBtn">Next Page</button>
+
     </div>
 
     <script>
-        let censusData = null;
+        let censusData = null; // Will store the JSON data once loaded
+        let nextPage = "";     // Will hold which page to navigate to
 
         async function populate() {
+            // Fetch the census data from the GitHub JSON file
             const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json";
             const response = await fetch(URL);
             censusData = await response.json();
@@ -37,43 +129,74 @@
         }
 
         function showDefaultIncome() {
+            // Access the default median household income for Georgia
             const value = censusData["State-Income-Data"]["Georgia"]["Median-Household-Income"];
             const box = document.getElementById("valueBox");
+
+            // Display the default value in the box
             box.textContent = `Median Household Income: ${value}`;
         }
 
         function updateBox(selection) {
             const box = document.getElementById("valueBox");
+            const nextBtn = document.getElementById("nextPageBtn");
 
             let value;
             let label;
 
+            // Check which option the user selected and update accordingly
             if (selection === "family") {
                 label = "Median Income for Families";
                 value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Families Household Income"];
+
+                // Update the display box
+                box.textContent = `${label}: ${value}`;
+
+                // Set next page destination
+                nextPage = "family.html";
+                nextBtn.style.display = "inline-block"; // Show button
             } 
             else if (selection === "married") {
                 label = "Median Income for Married-Couple Households";
                 value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Married-couples Household Income"];
+
+                // Update the display box
+                box.textContent = `${label}: ${value}`;
+
+                // Set next page destination
+                nextPage = "married.html";
+                nextBtn.style.display = "inline-block"; // Show button
             } 
             else if (selection === "nonfamily") {
                 label = "Median Income for Nonfamily Households";
                 value = censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Nonfamily Household Income"];
+
+                // Update the display box
+                box.textContent = `${label}: ${value}`;
+
+                // Set next page destination
+                nextPage = "nonfamily.html";
+                nextBtn.style.display = "inline-block"; // Show button
             } 
             else {
-                // User selected "Select One" → return to default
+                // If user selects "Select One", revert to default
                 showDefaultIncome();
-                return;
+                nextBtn.style.display = "none"; // Hide button again
             }
-
-            box.textContent = `${label}: ${value}`;
         }
 
+        // Listen for dropdown changes and update the display
         document.getElementById("householdSelect").addEventListener("change", function() {
             updateBox(this.value);
         });
 
-        populate();
+        // When user clicks "Next Page", navigate to the selected page
+        document.getElementById("nextPageBtn").addEventListener("click", function() {
+            window.location.href = nextPage;
+        });
+
+        populate(); // Load data when the page starts
     </script>
+
 </body>
 </html>
