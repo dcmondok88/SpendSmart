@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>SpendSmart - Home Page</title>
 
     <style>
         body {
@@ -90,9 +90,9 @@
 
     <div class="homepage-container">
 
-        <h1>Welcome to the Home Page</h1>
-        <p>Please select a household type. The median income for that category will be displayed.<br><br>
-        After selecting a household type, click the "Next Page" button to continue.</p>
+        <h1>Welcome to SpendSmart!</h1>
+        <p>Please select a household type that correlates to you.<br><br>
+        Once done, click the "Next Page" button to continue.</p>
 
         <!-- Dropdown for selecting household type -->
         <label for="householdSelect">Select household type:</label>
@@ -123,6 +123,12 @@
             const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json";
             const response = await fetch(URL);
             censusData = await response.json();
+
+            // Reset dropdown to default when returning to the page
+            document.getElementById("householdSelect").value = "default";
+
+            // Hide Next Page button on load
+            document.getElementById("nextPageBtn").style.display = "none";
 
             // Show default median income on page load
             showDefaultIncome();
