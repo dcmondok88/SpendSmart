@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Household Income</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #e9ffe9, #d6ffd6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            background: white;
+            padding: 40px;
+            width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 28px;
+            color: #2d8a2d;
+        }
+
+        #valueBox {
+            margin: 0 auto;
+            padding: 15px;
+            width: 350px;
+            border-radius: 8px;
+            border: 1px solid #2e7d32 !important;
+            background: #e8ffe8;
+            font-weight: bold;
+            color: black;
+            font-size: 18px;
+        }
+
+        /* Back button styled like Next Page button */
+        .backBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2d8a2d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .backBtn:hover {
+            background-color: #256f25;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <div id="valueBox">Loading...</div>
+
+        <h1>Family Household Income</h1>
+
+        <!-- Updated Back button -->
+        <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
+
+    </div>
+
+    <script>
+        async function loadIncome() {
+            const URL = "https://raw.githubusercontent.com/dcmondok88/SpendSmart/refs/heads/main/AnalysisEngine/ga_census_data.json";
+            const response = await fetch(URL);
+            const censusData = await response.json();
+
+            const value =
+                censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Families Household Income"];
+
+            document.getElementById("valueBox").textContent =
+                `Median Income for Families: ${value}`;
+        }
+
+        loadIncome();
+    </script>
+
+</body>
+</html>
