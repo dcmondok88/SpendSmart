@@ -59,6 +59,14 @@
         .backBtn:hover {
             background-color: #256f25;
         }
+        input{
+            display: block;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
     </style>
 </head>
 
@@ -71,8 +79,22 @@
         <h1>Nonfamily Household Income</h1>
 
         <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
+    <form id="userInput">
+        <label for="electric">Enter average electricity usage:</label>
+        <input type="text" id="electric" name="electric">
+        <label for="internet">Enter average internet usage:</label>
+        <input type="text" id="internet" name="internet">
+        <input type="submit" value="Submit" onclick="generateTable(); return false;">
+    </form>
+
+    
+    <table id="data">
+      
+    </table>
 
     </div>
+  
+
 
     <script>
         async function loadIncome() {
@@ -80,11 +102,42 @@
             const response = await fetch(URL);
             const censusData = await response.json();
 
+            result = JSON.stringify(censusData);
+
+            window.alert(result);
+
             const value =
                 censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Nonfamily Household Income"];
 
             document.getElementById("valueBox").textContent =
                 `Median Income for Nonfamily Households: ${value}`;
+
+            
+                    
+
+        }
+
+        function generateTable() {
+            let inputs = document.querySelectorAll("input");
+          
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i].value === "0"){
+                    alert(inputs[i]);
+                    
+                }
+            }
+
+            let table = document.getElementById("data");
+            let row = table.insertRow();
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerHTML = "Electricity Usage";
+            cell2.innerHTML = document.getElementById("electric").value;
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Internet Usage";
+            cell2.innerHTML = document.getElementById("internet").value;    
         }
 
         loadIncome();
