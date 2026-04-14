@@ -59,13 +59,47 @@
         .backBtn:hover {
             background-color: #256f25;
         }
-        input{
+
+        input {
             display: block;
         }
+
         table {
             margin: 20px auto;
             border-collapse: collapse;
             width: 80%;
+        }
+
+        /* centering the form and making inputs easier to read */
+        #userInput {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* centers all inputs */
+            gap: 12px; /* adds spacing between each input group */
+        }
+
+        #userInput label {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        #userInput input[type="text"] {
+            width: 220px; /* consistent width */
+            padding: 6px;
+            text-align: center; /* makes it easier to see what you're typing */
+            border-radius: 5px;
+            border: 1px solid #6bbf59;
+        }
+
+        /* making the annual income box match the others but with a darker green border */
+        #userIncome {
+            width: 220px;
+            padding: 6px;
+            text-align: center;
+            border-radius: 5px;
+            border: 2px solid #2e7d32; /* darker green border */
+            background-color: #f6fff6; /* subtle light green background */
         }
     </style>
 </head>
@@ -78,9 +112,14 @@
 
         <h1>Family Household Income</h1>
 
+        <!-- user enters their own annual income here -->
+        <label for="userIncome" style="font-weight:bold; margin-top:20px;">Enter your annual household income:</label>
+        <input type="text" id="userIncome" name="userIncome" style="margin: 10px auto; display:block;">
+
         <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
 
     <form id="userInput">
+
         <label for="automobile">Enter average automobile expenses:</label>
         <input type="text" id="automobile" name="automobile">
 
@@ -111,7 +150,7 @@
         <label for="water">Enter average water usage:</label>
         <input type="text" id="water" name="water">
 
-        <label for="Miscellaneous">Enter average miscellaneous expenses:</label>
+        <label for="misc">Enter average miscellaneous expenses:</label>
         <input type="text" id="misc" name="misc">
 
         <input type="submit" value="Submit" onclick="generateTable(); return false;">
@@ -127,9 +166,14 @@
             const response = await fetch(URL);
             const censusData = await response.json();
 
-            result = JSON.stringify(censusData);
-
-            window.alert(result);
+            // letting the user know what this page is about when it loads
+            window.alert(
+                "This page helps you calculate your total annual spending as a Family Household. " +
+                "Enter your expenses below and click submit when finished. " +
+                "A table will be generated below based on your inputs. " +
+                "If you spend more than your income, you will receive an alert. " +
+                "If you are saving less than 20% of your income, you will also receive a warning."
+            );
 
             const value =
                 censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Families Household Income"];
@@ -175,9 +219,19 @@
                     return;
                 }
 
-                // checking for zero values
-                if (inputs[i].value === "0"){
+                // preventing numbers from starting with 0 unless the value is exactly "0"
+                if (inputs[i].value.length > 1 && inputs[i].value.startsWith("0")) {
+                    alert("Numbers cannot start with 0.");
+                    return;
                 }
+            }
+
+            // making sure user entered their annual income
+            let userIncome = Number(document.getElementById("userIncome").value);
+
+            if (document.getElementById("userIncome").value.trim() === "") {
+                alert("Please enter your annual household income.");
+                return;
             }
 
             // getting numbers from input fields and calculating total spending
@@ -211,7 +265,7 @@
             // clearing old table rows before adding new ones
             table.innerHTML = "";
 
-            // original table rows
+            // original table rows (user income row removed)
             let row = table.insertRow();
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
