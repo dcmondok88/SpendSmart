@@ -81,11 +81,38 @@
         <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
 
     <form id="userInput">
+        <label for="automobile">Enter average automobile expenses:</label>
+        <input type="text" id="automobile" name="automobile">
+
         <label for="electric">Enter average electricity usage:</label>
         <input type="text" id="electric" name="electric">
 
+        <label for="food">Enter average food expenses:</label>
+        <input type="text" id="food" name="food">
+
+        <label for="fuel">Enter average fuel usage:</label>
+        <input type="text" id="fuel" name="fuel">
+
+        <label for="gas">Enter average gas usage:</label>
+        <input type="text" id="gas" name="gas">
+
+        <label for="health">Enter average healthcare expenses:</label>
+        <input type="text" id="health" name="health">
+
         <label for="internet">Enter average internet usage:</label>
         <input type="text" id="internet" name="internet">
+
+        <label for="phone">Enter average phone usage:</label>
+        <input type="text" id="phone" name="phone">
+
+        <label for="rent">Enter rent/mortgage:</label>
+        <input type="text" id="rent" name="rent">
+
+        <label for="water">Enter average water usage:</label>
+        <input type="text" id="water" name="water">
+
+        <label for="Miscellaneous">Enter average miscellaneous expenses:</label>
+        <input type="text" id="misc" name="misc">
 
         <input type="submit" value="Submit" onclick="generateTable(); return false;">
     </form>
@@ -156,7 +183,17 @@
             // getting numbers from input fields and calculating total spending
             let electric = Number(document.getElementById("electric").value);
             let internet = Number(document.getElementById("internet").value);
-            let total = electric + internet;
+            let food = Number(document.getElementById("food").value);
+            let fuel = Number(document.getElementById("fuel").value);
+            let gas = Number(document.getElementById("gas").value);
+            let health = Number(document.getElementById("health").value);
+            let phone = Number(document.getElementById("phone").value);
+            let rent = Number(document.getElementById("rent").value);
+            let water = Number(document.getElementById("water").value);
+            let automobile = Number(document.getElementById("automobile").value);
+            let misc = Number(document.getElementById("misc").value);
+
+            let total = electric + internet + food + fuel + gas + health + phone + rent + water + automobile + misc;
 
             // checking if spending is more than user income
             if (total > window.householdIncome) {
@@ -178,14 +215,68 @@
             let row = table.insertRow();
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
+            cell1.innerHTML = "Automobile Expenses";
+            cell2.innerHTML = document.getElementById("automobile").value;
+            
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
             cell1.innerHTML = "Electricity Usage";
             cell2.innerHTML = document.getElementById("electric").value;
 
             row = table.insertRow();
             cell1 = row.insertCell(0);
             cell2 = row.insertCell(1);
+            cell1.innerHTML = "Food Expenses";
+            cell2.innerHTML = document.getElementById("food").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Fuel Usage";
+            cell2.innerHTML = document.getElementById("fuel").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Gas Usage";
+            cell2.innerHTML = document.getElementById("gas").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Healthcare Expenses";
+            cell2.innerHTML = document.getElementById("health").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
             cell1.innerHTML = "Internet Usage";
-            cell2.innerHTML = document.getElementById("internet").value;    
+            cell2.innerHTML = document.getElementById("internet").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Phone Usage";
+            cell2.innerHTML = document.getElementById("phone").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Rent/Mortgage";
+            cell2.innerHTML = document.getElementById("rent").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Water Usage";
+            cell2.innerHTML = document.getElementById("water").value;
+
+            row = table.insertRow();
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell1.innerHTML = "Miscellaneous Expenses";
+            cell2.innerHTML = document.getElementById("misc").value;
         }
 
         loadIncome();
