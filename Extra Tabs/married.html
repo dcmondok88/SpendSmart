@@ -108,15 +108,14 @@
 
     <div class="page-container">
 
-        <div id="valueBox">Loading...</div>
+        <!-- NEW: placeholder text instead of median income -->
+        <div id="valueBox">Awaiting user input...</div>
 
         <h1>Married-Couple Household Income</h1>
 
         <!-- user enters their own annual income here -->
-        <label for="userIncome" style="font-weight:bold; margin-top:20px;">Enter your annual income:</label>
+        <label for="userIncome" style="font-weight:bold; margin-top:20px;">Enter your annual household income:</label>
         <input type="text" id="userIncome" name="userIncome" style="margin: 10px auto; display:block;">
-
-        <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
 
     <form id="userInput">
 
@@ -156,6 +155,9 @@
         <input type="submit" value="Submit" onclick="generateTable(); return false;">
     </form>
 
+        <!-- moving the Back to Home button below the submit button -->
+        <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
+
     <table id="data"></table>
 
     </div>
@@ -175,21 +177,34 @@
                 "If you are saving less than 20% of your income, you will also receive a warning."
             );
 
-            const value =
-                censusData["State-Income-Data"]["Based on Household Type in Georgia"]["Median Married-couples Household Income"];
-
+            // NEW: do not show median income anymore
             document.getElementById("valueBox").textContent =
-                `Median Income for Married-Couple Households: ${value}`;
+                "Awaiting user input...";
 
             // clearing table when page loads/reloads
             document.getElementById("data").innerHTML = "";
 
             // clearing form when page loads/reloads
             document.getElementById("userInput").reset();
-
-            // storing user income as a number
-            window.householdIncome = Number(value);
         }
+
+        /* NEW: updating the valueBox live as the user types their income */
+        document.addEventListener("input", function () {
+
+            let income = document.getElementById("userIncome").value.trim();
+
+            // if the user clears the box, show placeholder again
+            if (income === "") {
+                document.getElementById("valueBox").textContent =
+                    "Awaiting user input...";
+            }
+
+            // otherwise show the user's income
+            else {
+                document.getElementById("valueBox").textContent =
+                    `Your Annual Income: ${income}`;
+            }
+        });
 
         function generateTable() {
             let inputs = document.querySelectorAll("input");
@@ -250,13 +265,13 @@
             let total = electric + internet + food + fuel + gas + health + phone + rent + water + automobile + misc;
 
             // checking if spending is more than user income
-            if (total > window.householdIncome) {
+            if (total > userIncome) {
                 alert("You cannot spend more than your income.");
                 return;
             }
 
             // checking if user is saving less than 20%
-            if (total > window.householdIncome * 0.80) {
+            if (total > userIncome * 0.80) {
                 alert("Warning: You are saving less than 20% of your income.");
             }
 
