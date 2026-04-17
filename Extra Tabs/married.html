@@ -201,7 +201,7 @@
         document.addEventListener("input", function () {
 
             let income = document.getElementById("userIncome").value.trim();
-
+            document.getElementById("valueBox").textContent = "User's Annual Income: " + income;
             // preventing letters
             if (value !== "" && isNaN(value)) {
                 alert("Please enter numbers only.");

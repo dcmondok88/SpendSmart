@@ -200,7 +200,7 @@
         document.addEventListener("input", function () {
 
             let income = document.getElementById("userIncome").value.trim();
-
+            document.getElementById("valueBox").textContent = "User's Annual Income: " + income;
             // preventing letters
             if (value !== "" && isNaN(value)) {
                 alert("Please enter numbers only.");
@@ -376,7 +376,7 @@
             cell1.innerHTML = "Miscellaneous Expenses";
             cell2.innerHTML = document.getElementById("misc").value;
         
-                        row = table.insertRow();
+            row = table.insertRow();
             cell1 = row.insertCell(0);
             cell2 = row.insertCell(1);
             cell1.innerHTML = "Total Expenses";
