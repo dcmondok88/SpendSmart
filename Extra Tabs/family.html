@@ -387,10 +387,10 @@
             cellFinal = row.insertCell(1);
             cell1.innerHTML = "Percentage";
             let pct = (total / userIncome)*100
-            cellFinal.innerHTML = (total / userIncome)*100 + '%';
+            cellFinal.innerHTML = pct.toFixed(2) + '%';
 
-            if (pct <80){cellFinal.classList.add('less80')}
-            else if (pct <100){cellFinal.classList.add('less100')}
+            if (pct < 80){cellFinal.classList.add('less80')}
+            else if (pct < 100){cellFinal.classList.add('less100')}
             else if (pct >= 100){cellFinal.classList.add('at100')}            
         }
 
