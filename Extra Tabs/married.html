@@ -193,6 +193,27 @@
 
             let income = document.getElementById("userIncome").value.trim();
 
+            // preventing letters
+            if (value !== "" && isNaN(value)) {
+                alert("Please enter numbers only.");
+                incomeBox.value = "";
+                return;
+            }
+
+            // preventing negative numbers
+            if (value !== "" && Number(value) < 0) {
+                alert("Values cannot be negative.");
+                incomeBox.value = "";
+                return;
+            }
+
+            // preventing numbers from starting with 0 unless the value is exactly "0"
+            if (value.length > 1 && value.startsWith("0")) {
+                alert("Numbers cannot start with 0.");
+                incomeBox.value = "";
+                return;
+            }
+
             // if the user clears the box, show placeholder again
             if (income === "") {
                 document.getElementById("valueBox").textContent =
