@@ -12,6 +12,9 @@
         .less100{
             color: orange;
         }
+        .at100{
+            color: red;
+        }
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -389,9 +392,7 @@
 
             if (pct <80){cellFinal.classList.add('less80')}
             else if (pct <100){cellFinal.classList.add('less100')}
-            
-
-            
+            else if (pct >= 100){cellFinal.classList.add('at100')}            
         }
 
         loadIncome();
