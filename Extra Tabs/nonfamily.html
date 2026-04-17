@@ -6,8 +6,11 @@
     <title>Nonfamily Household Income</title>
 
     <style>
-        .final{
-            background-color: chocolate;
+        .less80{
+            color: green;
+        }
+        .less100{
+            color: orange;
         }
         body {
             margin: 0;
@@ -381,9 +384,12 @@
             cell1 = row.insertCell(0);
             cellFinal = row.insertCell(1);
             cell1.innerHTML = "Percentage";
+            let pct = (total / userIncome)*100
             cellFinal.innerHTML = (total / userIncome)*100 + '%';
 
-            cellFinal.classList.add('final')
+            if (pct <80){cellFinal.classList.add('less80')}
+            else if (pct <100){cellFinal.classList.add('less100')}
+            
 
             
         }
