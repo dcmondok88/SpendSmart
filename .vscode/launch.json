@@ -9,7 +9,7 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open index.html",
-            "file": "c:\\Users\\dcmon\\OneDrive\\Documents\\GitHub\\SpendSmart\\FrontEnd Display\\index.html"
+            "file": "${workspaceFolder}/FrontEnd Display/index.html"
         }
     ]
 }
