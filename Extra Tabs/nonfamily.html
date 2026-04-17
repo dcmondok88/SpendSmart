@@ -378,7 +378,7 @@
             cell1 = row.insertCell(0);
             cell2 = row.insertCell(1);
             cell1.innerHTML = "Percentage";
-            cell2.innerHTML = (total / userIncome) + '%';
+            cell2.innerHTML = (total / userIncome)*100 + '%';
         }
 
         loadIncome();
