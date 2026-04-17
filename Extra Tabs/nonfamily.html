@@ -297,11 +297,10 @@
             // checking if spending is more than user income
             if (total > userIncome) {
                 alert("You cannot spend more than your income.");
-                return;
             }
 
             // checking if user is saving less than 20%
-            if (total > userIncome * 0.80) {
+            else if (total > userIncome * 0.80) {
                 alert("Warning: You are saving less than 20% of your income.");
             }
 
