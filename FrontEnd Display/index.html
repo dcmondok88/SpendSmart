@@ -25,27 +25,23 @@
             text-align: center;
         }
 
-        /* Heading color (lighter green) */
         h1 {
             margin-top: 0;
             font-size: 28px;
             color: #2d8a2d;
         }
 
-        /* Standard black text for description */
         p {
             margin-bottom: 20px;
             font-size: 16px;
             color: black;
         }
 
-        /* Label styling */
         label {
             font-weight: bold;
             color: black;
         }
 
-        /* Dropdown appearance */
         select {
             margin-top: 10px;
             padding: 8px;
@@ -54,7 +50,6 @@
             border: 1px solid #6bbf59;
         }
 
-        /* Display box styling */
         #valueBox {
             margin: 0 auto;
             margin-top: 20px;
@@ -67,7 +62,6 @@
             color: black;
         }
 
-        /* Next Page button styling */
         #nextPageBtn {
             margin-top: 20px;
             padding: 10px 20px;
@@ -77,7 +71,7 @@
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            display: none; /* Hidden until a choice is made */
+            display: none;
         }
 
         #nextPageBtn:hover {
@@ -158,7 +152,7 @@
                 // Update the display box
                 box.textContent = `${label}: ${value}`;
 
-                // Correct path to family.html
+                // Path to family.html
                 nextPage = "../Extra Tabs/family.html";
                 nextBtn.style.display = "inline-block"; // Show button
             } 
@@ -169,7 +163,7 @@
                 // Update the display box
                 box.textContent = `${label}: ${value}`;
 
-                // Correct path to married.html
+                // Path to married.html
                 nextPage = "../Extra Tabs/married.html";
                 nextBtn.style.display = "inline-block"; // Show button
             } 
@@ -180,7 +174,7 @@
                 // Update the display box
                 box.textContent = `${label}: ${value}`;
 
-                // Correct path to nonfamily.html
+                // Path to nonfamily.html
                 nextPage = "../Extra Tabs/nonfamily.html";
                 nextBtn.style.display = "inline-block"; // Show button
             } 

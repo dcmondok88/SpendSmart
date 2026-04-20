@@ -278,7 +278,7 @@
                 return;
             }
 
-            // getting numbers from input fields and calculating total spending
+            // Getting numbers from input fields and calculating total spending
             let electric = Number(document.getElementById("electric").value);
             let internet = Number(document.getElementById("internet").value);
             let food = Number(document.getElementById("food").value);
@@ -293,22 +293,22 @@
 
             let total = electric + internet + food + fuel + gas + health + phone + rent + water + automobile + misc;
 
-            // checking if spending is more than user income
+            // Checks to see if user is spending more than their income
             if (total > userIncome) {
                 alert("You cannot spend more than your income.");
             }
 
-            // checking if user is saving less than 20%
+            // Checks to see if user is saving less than 20%
             else if (total > userIncome * 0.80) {
                 alert("Warning: You are saving less than 20% of your income.");
             }
 
             let table = document.getElementById("data");
 
-            // clearing old table rows before adding new ones
+            // Clearing old table rows before adding new ones
             table.innerHTML = "";
 
-            // original table rows (user income row removed)
+            // Table rows showing expenses
             let row = table.insertRow();
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
