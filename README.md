@@ -3,8 +3,6 @@ SpendSmart is a simple, browser‑based financial awareness tool that aims to he
 
 After choosing a household type, users are guided to input their annual expenses to which SpendSmart then generates a table that summarizes their spending and provides warnings if they exceed thresholds that have been put into place.
 
----
-
 ## Features
 
 ### **Household Type Selection**
