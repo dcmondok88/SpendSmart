@@ -1,7 +1,5 @@
 # SpendSmart - A Financial Awareness Tool
-SpendSmart is a simple, browser‑based financial awareness tool that aims to help users estimate their annual spending. Users then select from one of three household types (Family, Married & Non-Family). Upon their choice, they can see the median income for that specific household type based around Georgia census data from the year 2025.
-
-After choosing a household type, users are guided to input their annual expenses to which SpendSmart then generates a table that summarizes their spending and provides warnings if they exceed thresholds that have been put into place.
+SpendSmart is a simple, browser‑based financial awareness tool designed to help users estimate their annual spending and compare it to median household income levels in Georgia (2025) based on three different household types: Family, Married‑Couple, or Nonfamily.
 
 ## Features
 
