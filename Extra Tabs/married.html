@@ -70,13 +70,12 @@
             width: 80%;
         }
 
-        /* centering the form and making inputs easier to read */
         #userInput {
             margin-top: 25px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* centers all inputs */
-            gap: 12px; /* adds spacing between each input group */
+            align-items: center;
+            gap: 12px;
         }
 
         #userInput label {
@@ -85,21 +84,20 @@
         }
 
         #userInput input[type="text"] {
-            width: 220px; /* consistent width */
+            width: 220px;
             padding: 6px;
-            text-align: center; /* makes it easier to see what you're typing */
+            text-align: center;
             border-radius: 5px;
             border: 1px solid #6bbf59;
         }
 
-        /* making the annual income box match the others but with a darker green border */
         #userIncome {
             width: 220px;
             padding: 6px;
             text-align: center;
             border-radius: 5px;
-            border: 2px solid #2e7d32; /* darker green border */
-            background-color: #f6fff6; /* subtle light green background */
+            border: 2px solid #2e7d32;
+            background-color: #f6fff6;
         }
         .less80{
             color: green;
@@ -124,7 +122,8 @@
         <!-- user enters their own annual income here -->
         <label for="userIncome" style="font-weight:bold; margin-top:20px;">Enter your annual household income:</label>
         <input type="text" id="userIncome" name="userIncome" style="margin: 10px auto; display:block;">
-
+    
+    <!-- user enters their spendings here -->
     <form id="userInput">
 
         <label for="automobile">Enter average automobile expenses:</label>
@@ -163,7 +162,6 @@
         <input type="submit" value="Submit" onclick="generateTable(); return false;">
     </form>
 
-        <!-- moving the Back to Home button below the submit button -->
         <a class="backBtn" href="../FrontEnd Display/index.html">Back to Home</a>
 
     <table id="data"></table>
@@ -176,7 +174,7 @@
             const response = await fetch(URL);
             const censusData = await response.json();
 
-            // letting the user know what this page is about when it loads
+            // Informs user what this page is about when it loads
             window.alert(
                 "This page helps you calculate your total annual spending as a Married-Couple Household. " +
                 "Enter your expenses below and click submit when finished. " +
@@ -185,50 +183,50 @@
                 "If you are saving less than 20% of your income, you will also receive a warning."
             );
 
-            // NEW: do not show median income anymore
+            // valueBox that waits for a user to input income
             document.getElementById("valueBox").textContent =
                 "Awaiting user input...";
 
-            // clearing table when page loads/reloads
+            // Clears table when page loads and reloads
             document.getElementById("data").innerHTML = "";
 
-            // clearing form when page loads/reloads
+            // Clears form when page loads/reloads
             document.getElementById("userInput").reset();
         }
 
-        /* NEW: updating the valueBox live as the user types their income */
+        // Updates the valueBox in real time as the user types their income
         document.addEventListener("input", function () {
 
             let income = document.getElementById("userIncome").value.trim();
             document.getElementById("valueBox").textContent = "User's Annual Income: " + income;
-            // preventing letters
+            // Preventing letters
             if (value !== "" && isNaN(value)) {
                 alert("Please enter numbers only.");
                 incomeBox.value = "";
                 return;
             }
 
-            // preventing negative numbers
+            // Preventing negative numbers
             if (value !== "" && Number(value) < 0) {
                 alert("Values cannot be negative.");
                 incomeBox.value = "";
                 return;
             }
 
-            // preventing numbers from starting with 0 unless the value is exactly "0"
+            // Preventing numbers from starting with 0 unless the value is exactly "0"
             if (value.length > 1 && value.startsWith("0")) {
                 alert("Numbers cannot start with 0.");
                 incomeBox.value = "";
                 return;
             }
 
-            // if the user clears the box, show placeholder again
+            // If the user clears the valueBox, valueBox shows how it's waiting for user input
             if (income === "") {
                 document.getElementById("valueBox").textContent =
                     "Awaiting user input...";
             }
 
-            // otherwise show the user's income
+            // Otherwise show the user's income
             else {
                 document.getElementById("valueBox").textContent =
                     `Your Annual Income: ${income}`;
@@ -240,37 +238,37 @@
           
             for (let i = 0; i < inputs.length; i++) {
 
-                // skipping submit button so it doesn't get checked
+                // Skipping submit button so it doesn't get checked
                 if (inputs[i].type === "submit") {
                     continue;
                 }
 
-                // checking for empty input
+                // Checking for empty input
                 if (inputs[i].value.trim() === "") {
                     alert("Please fill out all fields.");
                     return;
                 }
 
-                // checking for letters
+                // Checking for letters
                 if (isNaN(inputs[i].value)) {
                     alert("Please enter numbers only.");
                     return;
                 }
 
-                // checking for negative numbers
+                // Checking for negative numbers
                 if (Number(inputs[i].value) < 0) {
                     alert("Values cannot be negative.");
                     return;
                 }
 
-                // preventing numbers from starting with 0 unless the value is exactly "0"
+                // Preventing numbers from starting with 0 unless the value is exactly "0"
                 if (inputs[i].value.length > 1 && inputs[i].value.startsWith("0")) {
                     alert("Numbers cannot start with 0.");
                     return;
                 }
             }
 
-            // making sure user entered their annual income
+            // Making sure user entered their annual income
             let userIncome = Number(document.getElementById("userIncome").value);
 
             if (document.getElementById("userIncome").value.trim() === "") {
@@ -278,7 +276,7 @@
                 return;
             }
 
-            // getting numbers from input fields and calculating total spending
+            // Getting numbers from all input fields and calculating total spending
             let electric = Number(document.getElementById("electric").value);
             let internet = Number(document.getElementById("internet").value);
             let food = Number(document.getElementById("food").value);
@@ -293,12 +291,12 @@
 
             let total = electric + internet + food + fuel + gas + health + phone + rent + water + automobile + misc;
 
-            // checking if spending is more than user income
+            // Checks to see if user is spending is more than their income
             if (total > userIncome) {
                 alert("You cannot spend more than your income.");
             }
 
-            // checking if user is saving less than 20%
+            // Checks to see if user is saving less than 20%
             else if (total > userIncome * 0.80) {
                 alert("Warning: You are saving less than 20% of your income.");
             }
