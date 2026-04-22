@@ -31,8 +31,8 @@ After submission, a table is generated showing:
     - 🟠 Orange — User spending between 80% and 99%
     - 🔴 Red — User spending ≥ 100%
 
-### **JSON‑Driven Income Data**
-Georgia median income values are loaded from:
+### **Data Driven Income Data**
+Georgia median income values are loaded from a JSON Object based on data from https://data.census.gov/:
 ('AnalysisEngine/ga_census_data.json')
 
 ### **How to Run SpendSmart**
